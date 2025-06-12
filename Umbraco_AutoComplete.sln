@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35931.197 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Umbraco_AutoComplete", "Umbraco_AutoComplete\Umbraco_AutoComplete.csproj", "{B55C467E-2B75-4543-A0E0-5701D894359E}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{B55C467E-2B75-4543-A0E0-5701D894359E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B55C467E-2B75-4543-A0E0-5701D894359E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B55C467E-2B75-4543-A0E0-5701D894359E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B55C467E-2B75-4543-A0E0-5701D894359E}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {61102F2E-0379-45E5-BF08-970A11473556}
+	EndGlobalSection
+EndGlobal

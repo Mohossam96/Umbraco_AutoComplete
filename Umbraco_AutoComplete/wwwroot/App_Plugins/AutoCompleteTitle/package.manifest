@@ -1,0 +1,17 @@
+{
+  "propertyEditors": [
+    {
+      "alias": "AutoComplete.Title",
+      "name": "AI AutoComplete Title",
+      "editor": {
+        "view": "~/App_Plugins/AutoCompleteTitle/autocomplete-title.html",
+        "valueType": "TEXT"
+      },
+      "icon": "icon-autofill",
+      "group": "Common"
+    }
+  ],
+  "javascript": [
+    "~/App_Plugins/AutoCompleteTitle/autocomplete-title.controller.js"
+  ]
+}

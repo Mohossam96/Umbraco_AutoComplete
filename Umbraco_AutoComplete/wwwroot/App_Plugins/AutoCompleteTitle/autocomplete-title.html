@@ -1,0 +1,11 @@
+﻿<div ng-controller="autoCompleteTitleController"> 
+    <input type="text"
+           class="umb-property-editor"
+           ng-model="model.value"
+           ng-change="onTitleChange()"
+           ng-keydown="($event.keyCode === 9) && applySuggestion()" />
+
+    <div class="autocomplete-suggestion" ng-if="suggestion">
+        <small>Suggestion: <em>{{ suggestion }}</em></small>
+    </div>
+</div>
