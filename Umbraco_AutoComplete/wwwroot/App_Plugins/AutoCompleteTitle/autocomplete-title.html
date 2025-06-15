@@ -3,9 +3,15 @@
            class="umb-property-editor"
            ng-model="model.value"
            ng-change="onTitleChange()"
-           ng-keydown="($event.keyCode === 9) && applySuggestion()" />
+           />
 
-    <div class="autocomplete-suggestion" ng-if="suggestion">
-        <small>Suggestion: <em>{{ suggestion }}</em></small>
+    <div class="autocomplete-suggestion" ng-if="suggestion && suggestion.length">
+        <div style="display: flex; gap: 8px; margin-top: 4px;">
+            <span ng-repeat="item in suggestion"
+                  ng-click="applySuggestion(item)"
+                  style="cursor: pointer; padding: 2px 8px; border-radius: 4px; background: #f0f0f0; border: 1px solid #ccc;">
+                <em>{{ item }}</em>
+            </span>
+        </div>
     </div>
 </div>

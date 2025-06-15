@@ -1,3 +1,5 @@
+using Umbraco_AutoComplete.Services;
+
 WebApplicationBuilder builder = WebApplication.CreateBuilder(args);
 
 builder.CreateUmbracoBuilder()
@@ -6,6 +8,9 @@ builder.CreateUmbracoBuilder()
     .AddDeliveryApi()
     .AddComposers()
     .Build();
+
+
+builder.Services.AddSingleton<IAIService, AIService>();
 
 WebApplication app = builder.Build();
 

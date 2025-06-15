@@ -1,18 +1,19 @@
 ﻿angular.module("umbraco").controller("autoCompleteTitleController", function ($scope, $http, $timeout) {
     let debounceTimeout;
-    $scope.suggestion = "";
+    $scope.suggestion = [];
 
     $scope.onTitleChange = function () {
         if (debounceTimeout) $timeout.cancel(debounceTimeout);
         debounceTimeout = $timeout(() => {
             if (!$scope.model.value) {
-                $scope.suggestion = "";
+                $scope.suggestion = [];
                 return
             };
             console.log("Fetching suggestion for:", $scope.model.value);
            
             $http.post("/umbraco/backoffice/AIHelper/Completion/GetSuggestion?input="+ $scope.model.value)
                 .then(res => {
+
                     $scope.suggestion = res.data;
                 });
         }, 500);
@@ -21,7 +22,7 @@
     $scope.applySuggestion = function () {
         if ($scope.suggestion) {
             $scope.model.value = $scope.suggestion;
-            $scope.suggestion = "";
+            $scope.suggestion = [];
         }
     };
 });

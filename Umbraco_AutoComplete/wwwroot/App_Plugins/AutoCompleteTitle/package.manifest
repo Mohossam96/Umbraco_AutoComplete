@@ -1,6 +1,6 @@
 {
   "propertyEditors": [
-    {
+    { 
       "alias": "AutoComplete.Title",
       "name": "AI AutoComplete Title",
       "editor": {
