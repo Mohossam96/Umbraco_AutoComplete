@@ -51,6 +51,12 @@ namespace Umbraco_AutoComplete.Controllers
             #endregion
             return await _aiService.GetSuggestionsAsync(input);
         }
+        [HttpPost]
+        public async Task<string> GetRichTextSuggestion(string input)
+        {
+           
+            return await _aiService.GetRichTextSuggestionAsync(input);
+        }
     }
 
 }

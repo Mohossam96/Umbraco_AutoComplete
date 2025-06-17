@@ -19,9 +19,9 @@
         }, 500);
     };
 
-    $scope.applySuggestion = function () {
-        if ($scope.suggestion) {
-            $scope.model.value = $scope.suggestion;
+    $scope.applySuggestion = function (item) {
+        if (item) {
+            $scope.model.value = item;
             $scope.suggestion = [];
         }
     };

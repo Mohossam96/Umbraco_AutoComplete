@@ -1,8 +1,9 @@
-﻿
+﻿using AIService.Interfaces;
 using Newtonsoft.Json;
 using System.Text;
 
-namespace Umbraco_AutoComplete.Services
+namespace AIService.Services
+
 {
     public class AIService : IAIService
     {
