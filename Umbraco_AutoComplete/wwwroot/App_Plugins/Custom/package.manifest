@@ -1,0 +1,16 @@
+{
+  "javascript": [
+    "~/App_Plugins/Custom/js/common.js",
+    "~/App_Plugins/Custom/js/customTextBox.controller.js"
+  ],
+  //"css": [ "~/App_Plugins/Custom/css/Common.css" ]
+  //"propertyEditors": [
+  //  {
+  //    "alias": "custom.textbox",
+  //    "name": "Custom Text Box",
+  //    "editor": {
+  //      "view": "~/App_Plugins/Custom/views/CustomTextBox.html"
+  //    }
+  //  }
+  //]
+}

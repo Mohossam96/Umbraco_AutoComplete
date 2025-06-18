@@ -1,0 +1,8 @@
+{
+  "javascript": [
+    "~/App_Plugins/AIRichTextComponent/ai-richtext-editor-Copy.controller.js"
+  ],
+  "views": [
+    "~/App_Plugins/AIRichTextComponent/ai-richtext-editor-Copy.html"
+  ]
+}

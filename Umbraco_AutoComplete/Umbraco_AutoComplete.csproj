@@ -13,6 +13,10 @@
     <None Include="wwwroot\App_Plugins\AutoCompleteTitle\autocomplete-title.controller.js" />
     <None Include="wwwroot\App_Plugins\AutoCompleteTitle\autocomplete-title.html" />
     <None Include="wwwroot\App_Plugins\AutoCompleteTitle\package.manifest" />
+    <None Include="wwwroot\App_Plugins\Custom\js\common.js" />
+    <None Include="wwwroot\App_Plugins\Custom\js\customTextBox.controller.js" />
+    <None Include="wwwroot\App_Plugins\Custom\package.manifest" />
+    <None Include="wwwroot\App_Plugins\Custom\views\CustomTextBox.html" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +26,7 @@
   <ItemGroup>
     <!-- Opt-in to app-local ICU to ensure consistent globalization APIs across different platforms -->
     <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
+    <ProjectReference Include="..\AIService\AIService.csproj" />
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
   </ItemGroup>
 
