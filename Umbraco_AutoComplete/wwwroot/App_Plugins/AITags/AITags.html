@@ -1,0 +1,12 @@
+﻿<div ng-controller="Umbraco.PropertyEditors.TagsController" class="umb-property-editor umb-tags">
+
+    <umb-ai-tags-editor value="model.value"
+                     config="model.config"
+                     validation="model.validation"
+                     on-value-changed="valueChanged(value)"
+                     culture="model.culture"
+                     input-id="{{model.alias}}"
+                     ng-attr-readonly="{{ readonly || undefined }}">
+    </umb-ai-tags-editor>
+
+</div>

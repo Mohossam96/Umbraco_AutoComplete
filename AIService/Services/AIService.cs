@@ -81,5 +81,39 @@ namespace AIService.Services
             var listofSuggestions = suggestions.Split(',').ToList();
             return listofSuggestions;
         }
+        public async Task<List<string>> GetTagSuggestionsAsync(string input)
+        {
+            var client = new HttpClient();
+            // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
+            var request = new
+            {
+                contents = new[]
+                    {
+                    new
+                    {
+                        parts = new[]
+                        {
+                            new
+                            {
+                                text = $@"Suggest 6 relevant tags for the following news headline. Separate each tag with a comma and respond with tags only — no extra text or explanation. Headline: {input}"
+                            }
+                        }
+                    }
+                }
+            };
+
+
+            var json = JsonConvert.SerializeObject(request);
+            var response = await client.PostAsync(
+                @"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDJfBCUTgFUI4kv1RxM40a1khn8WYYQb4I",
+                new StringContent(json, Encoding.UTF8, "application/json")
+            );
+
+            var result = await response.Content.ReadAsStringAsync();
+            dynamic completion = JsonConvert.DeserializeObject(result);
+            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
+            var listofSuggestions = suggestions.Split(',').ToList();
+            return listofSuggestions;
+        }
     }
 }

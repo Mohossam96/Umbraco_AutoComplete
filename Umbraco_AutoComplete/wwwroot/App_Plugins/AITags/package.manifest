@@ -1,0 +1,8 @@
+{
+  "javascript": [
+    "~/App_Plugins/AITags/ai_tag_suggestion.js"
+  ],
+  "views": [
+    "~/App_Plugins/AITags/AITags.html"
+  ]
+}

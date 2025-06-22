@@ -17,6 +17,11 @@
                                 debugger;
                                 request.url = "/App_Plugins/AIRichTextComponent/ai-richtext-editor-Copy.html";
                             }
+                            // tag editor
+                            if (request.url.includes("/propertyeditors/tags/tags.html")) {
+                                debugger;
+                                request.url = "/App_Plugins/AITags/AITags.html";
+                            }
 
                         }
                         return request;

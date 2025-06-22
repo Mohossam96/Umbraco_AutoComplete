@@ -5,53 +5,21 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Remove="umbraco - Copy\**" />
+    <Compile Remove="umbraco\**" />
+    <Content Remove="umbraco - Copy\**" />
+    <Content Remove="umbraco\**" />
+    <EmbeddedResource Remove="umbraco - Copy\**" />
+    <EmbeddedResource Remove="umbraco\**" />
+    <None Remove="umbraco - Copy\**" />
+    <None Remove="umbraco\**" />
+  </ItemGroup>
+  <ItemGroup>
     <Content Remove="wwwroot\App_Plugins\AutoCompleteTitle\autocomplete-title.controller.js" />
     <Content Remove="wwwroot\App_Plugins\AutoCompleteTitle\autocomplete-title.html" />
     <Content Remove="wwwroot\App_Plugins\AutoCompleteTitle\package.manifest" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="umbraco\Data\TEMP\InMemoryAuto\all.generated.cs" />
-    <Compile Include="umbraco\Data\TEMP\InMemoryAuto\models.generated.cs" />
-  </ItemGroup>
-  <ItemGroup>
-    <Content Include="umbraco\Data\TEMP\DistCache\4ac891fbc1c0abf4ace367e7c3b734e772ad98d6-lastsynced.txt" />
-    <Content Include="umbraco\Data\TEMP\Install\install_ae844fe74e174b949e9194fd110dea46.txt" />
-    <Content Include="umbraco\Logs\UmbracoTraceLog.MOHAMED-HHOSNY.20250612.json" />
-    <Content Include="umbraco\Logs\UmbracoTraceLog.MOHAMED-HHOSNY.20250615.json" />
-    <Content Include="umbraco\Logs\UmbracoTraceLog.MOHAMED-HHOSNY.20250616.json" />
-    <Content Include="umbraco\Logs\UmbracoTraceLog.MOHAMED-HHOSNY.20250617.json" />
-    <Content Include="umbraco\Logs\UmbracoTraceLog.MOHAMED-HHOSNY.20250618.json" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\DeliveryApiContentIndex\segments.gen" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\DeliveryApiContentIndex\segments_1c" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\DeliveryApiContentIndex\write.lock" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\ExternalIndex\segments.gen" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\ExternalIndex\segments_12" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\ExternalIndex\write.lock" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\ExternalIndex\_l.cfe" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\ExternalIndex\_l.cfs" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\ExternalIndex\_l.si" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\InternalIndex\segments.gen" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\InternalIndex\segments_14" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\InternalIndex\write.lock" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\InternalIndex\_n.cfe" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\InternalIndex\_n.cfs" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\InternalIndex\_n.si" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\MembersIndex\segments.gen" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\MembersIndex\segments_1c" />
-    <None Include="umbraco\Data\TEMP\ExamineIndexes\MembersIndex\write.lock" />
-    <None Include="umbraco\Data\TEMP\InMemoryAuto\all.dll.path" />
-    <None Include="umbraco\Data\TEMP\InMemoryAuto\Compiled\generated.csa74864729eb17c8bf839f95cc677c0565c0a2114.dll" />
-    <None Include="umbraco\Data\TEMP\InMemoryAuto\models.hash" />
-    <None Include="umbraco\Data\TEMP\MainDom_e600795a66a608c5e450be3f6328eb7f9c9948b3.lock" />
-    <None Include="umbraco\Data\TEMP\NuCache\NuCache.Content.db" />
-    <None Include="umbraco\Data\TEMP\NuCache\NuCache.Content.tlog" />
-    <None Include="umbraco\Data\TEMP\NuCache\NuCache.Media.db" />
-    <None Include="umbraco\Data\TEMP\NuCache\NuCache.Media.tlog" />
-    <None Include="umbraco\Data\Umbraco.sqlite.db" />
-    <None Include="umbraco\Data\Umbraco.sqlite.db-shm" />
-    <None Include="umbraco\Data\Umbraco.sqlite.db-wal" />
     <None Include="wwwroot\App_Plugins\AutoCompleteTitle\autocomplete-title.controller.js" />
     <None Include="wwwroot\App_Plugins\AutoCompleteTitle\autocomplete-title.html" />
     <None Include="wwwroot\App_Plugins\AutoCompleteTitle\package.manifest" />
@@ -70,10 +38,6 @@
     <PackageReference Include="Microsoft.ICU.ICU4C.Runtime" Version="72.1.0.3" />
     <ProjectReference Include="..\AIService\AIService.csproj" />
     <RuntimeHostConfigurationOption Include="System.Globalization.AppLocalIcu" Value="72.1.0.3" Condition="$(RuntimeIdentifier.StartsWith('linux')) or $(RuntimeIdentifier.StartsWith('win')) or ('$(RuntimeIdentifier)' == '' and !$([MSBuild]::IsOSPlatform('osx')))" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="umbraco\Data\TEMP\FileUploads\" />
   </ItemGroup>
 
   <PropertyGroup>
