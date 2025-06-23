@@ -5,5 +5,6 @@
         Task<List<string>> GetSuggestionsAsync(string input);
     
         Task<string> GetRichTextSuggestionAsync(string input);
+        Task<List<string>> GetTagSuggestionsAsync(string input);
     }
 }

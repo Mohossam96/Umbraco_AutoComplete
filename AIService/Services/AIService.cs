@@ -95,7 +95,7 @@ namespace AIService.Services
                         {
                             new
                             {
-                                text = $@"Suggest 6 relevant tags for the following news headline. Separate each tag with a comma and respond with tags only — no extra text or explanation. Headline: {input}"
+                                text = $@"Suggest 10 relevant tags for the following description. Separate each tag with a comma and respond with tags only — no extra text or explanation. Headline: {input}"
                             }
                         }
                     }

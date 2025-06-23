@@ -4,6 +4,7 @@ using Newtonsoft.Json;
 using System.Text;
 using Umbraco.Cms.Web.BackOffice.Controllers;
 using Umbraco.Cms.Web.Common.Attributes;
+using Umbraco_AutoComplete.DTO;
 
 namespace Umbraco_AutoComplete.Controllers
 {
@@ -51,12 +52,20 @@ namespace Umbraco_AutoComplete.Controllers
             #endregion
             return await _aiService.GetSuggestionsAsync(input);
         }
+
+        [HttpPost]
+
+        public async Task<List<string>> GetTagSuggestion(RequestDTO request)
+        {
+            return await _aiService.GetTagSuggestionsAsync(request.input);
+        }
         [HttpPost]
         public async Task<string> GetRichTextSuggestion(string input)
         {
            
             return await _aiService.GetRichTextSuggestionAsync(input);
         }
+       
     }
 
 }

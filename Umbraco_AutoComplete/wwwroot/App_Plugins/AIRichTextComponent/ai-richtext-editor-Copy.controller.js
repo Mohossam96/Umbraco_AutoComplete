@@ -1,7 +1,7 @@
 ﻿function BlockRteController(
     $element, $scope, $q, $timeout, $interpolate, assetsService, editorService, clipboardService,
     localizationService, overlayService, blockEditorService, udiService, serverValidationManager,
-    angularHelper, eventsService, $attrs, tinyMceAssets, tinyMceService, $http // <-- add $http here
+    angularHelper, eventsService, $attrs, tinyMceAssets, tinyMceService, $http, $rootScope // <-- add $http here
 ) {
     var modelObject, unsubscribe = [], liveEditing = true, vm = this;
 
@@ -10,6 +10,7 @@
         if (modelObject) modelObject.update(vm.model.value.blocks, $scope);
         onLoaded();
     }
+   
 
     function ensurePropertyValue(newVal) {
         if (typeof newVal !== "object" || newVal == null) {
@@ -51,6 +52,12 @@
             vm.blocksLoading = false;
             vm.updateLoading();
             $scope.$evalAsync();
+            console.log('BlockRteController onLoaded called, layout:', vm.layout);
+            // check if rich text has value if so store it in local storage
+            if (vm.model.value.markup && vm.model.value.markup.trim() !== "") {
+                const localStorageKey = `umbraco-rte-${vm.model.alias}`;
+                localStorage.setItem(localStorageKey, vm.model.value.markup);
+            }
         } catch (e) {
             console.error("onLoaded error:", e);
             vm.blocksLoading = false;
@@ -537,6 +544,12 @@
                 vm.blocksLoading = false;
                 vm.updateLoading();
             });
+            console.log('BlockRteController onInit successfully');
+            // check if rich text has value if so store it in local storage
+            if (vm.model.value.markup && vm.model.value.markup.trim() !== "") {
+                const localStorageKey = `umbraco-rte-${vm.model.alias}`;
+                localStorage.setItem(localStorageKey, vm.model.value.markup);
+            }
         } catch (err) {
             console.error("Component initialization failed", err);
             vm.rteLoading = false;
@@ -546,7 +559,7 @@
     };
     vm.aiPrompt = "";
     vm.isLoading = false;
-
+   
     vm.generateDescription = function () {
         if (!vm.aiPrompt) return;
 
@@ -557,6 +570,8 @@
             .then(function (res) {
                 vm.model.value.markup = res.data; // This updates the RTE via binding
                 vm.isLoading = false;
+                //emit event with res.data 
+                $rootScope.$emit("TagPrompt", res.data);
             })
             .catch(function () {
                 vm.isLoading = false;
@@ -567,6 +582,7 @@
     vm.focusRTE = function () {
         if (vm.tinyMceEditor) vm.tinyMceEditor.focus();
     };
+    
     vm.requestShowCreate = function (createIndex, mouseEvent) {
         if (vm.blockTypePicker) return;
         if (vm.availableBlockTypes.length === 1) {
@@ -615,7 +631,7 @@
 BlockRteController.$inject = [
     '$element', '$scope', '$q', '$timeout', '$interpolate', 'assetsService', 'editorService', 'clipboardService',
     'localizationService', 'overlayService', 'blockEditorService', 'udiService', 'serverValidationManager',
-    'angularHelper', 'eventsService', '$attrs', 'tinyMceAssets', 'tinyMceService', '$http'
+    'angularHelper', 'eventsService', '$attrs', 'tinyMceAssets', 'tinyMceService', '$http', '$rootScope'
 ];
 
 angular.module("umbraco").component("umbAiRtePropertyEditor", {
