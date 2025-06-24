@@ -1,0 +1,11 @@
+{
+  "javascript": [
+    "/App_Plugins/AIChatBot/marked.min.js",
+    "/App_Plugins/AIChatBot/chatBot.component.js",
+    "/App_Plugins/AIChatBot/aiChatBot.bootstrap.js"
+
+  ],
+  "css": [
+    "/App_Plugins/AIChatBot/aiChatBot.css"
+  ]
+}

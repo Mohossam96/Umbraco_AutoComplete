@@ -1,4 +1,6 @@
-﻿namespace AIService.Interfaces
+﻿using System.Threading.Tasks;
+
+namespace AIService.Interfaces
 {
     public interface IAIService
     {
@@ -6,5 +8,6 @@
     
         Task<string> GetRichTextSuggestionAsync(string input);
         Task<List<string>> GetTagSuggestionsAsync(string input);
+        Task<string> ChatBotReply(string input);
     }
 }

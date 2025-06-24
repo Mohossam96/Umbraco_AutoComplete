@@ -65,6 +65,11 @@ namespace Umbraco_AutoComplete.Controllers
            
             return await _aiService.GetRichTextSuggestionAsync(input);
         }
+        [HttpPost]
+        public async Task<string> GetChatReply(RequestDTO request)
+        {
+            return await _aiService.ChatBotReply(request.input);
+        }
        
     }
 

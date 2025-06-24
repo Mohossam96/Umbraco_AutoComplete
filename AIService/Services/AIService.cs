@@ -47,6 +47,42 @@ namespace AIService.Services
             return suggestions;
         }
 
+        public async Task<string> ChatBotReply(string input)
+        {
+            var client = new HttpClient();
+            // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
+            var request = new
+            {
+                contents = new[]
+                    {
+                    new
+                    {
+                        parts = new[]
+                        {
+                            new
+                            {
+                                text = input
+
+                            }
+                        }
+                    }
+                }
+            };
+
+
+            var json = JsonConvert.SerializeObject(request);
+            var response = await client.PostAsync(
+                @"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDJfBCUTgFUI4kv1RxM40a1khn8WYYQb4I",
+                new StringContent(json, Encoding.UTF8, "application/json")
+            );
+
+            var result = await response.Content.ReadAsStringAsync();
+            dynamic completion = JsonConvert.DeserializeObject(result);
+            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
+            suggestions = suggestions.Replace("```html", "").Replace("```", "").Trim();
+            return suggestions;
+        }
+
         public async Task<List<string>> GetSuggestionsAsync(string input)
         {
             var client = new HttpClient();
