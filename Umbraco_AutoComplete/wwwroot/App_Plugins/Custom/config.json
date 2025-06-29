@@ -1,6 +1,6 @@
 {
   "enableAITextEditor": true,
-  "enableAIChatBot": false,
+  "enableAIChatBot": true,
   "enableAIRichText": true,
   "enableAITags": true
 }
