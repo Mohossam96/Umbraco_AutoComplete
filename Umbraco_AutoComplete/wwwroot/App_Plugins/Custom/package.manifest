@@ -1,7 +1,9 @@
 {
   "javascript": [
     "~/App_Plugins/Custom/js/common.js",
-    "~/App_Plugins/Custom/js/customTextBox.controller.js"
+    "~/App_Plugins/Custom/js/customTextBox.controller.js",
+    "~/App_Plugins/Custom/js/custom-config-loader.js",
+    "~/App_Plugins/Custom/js/app-init.js"
   ],
   //"css": [ "~/App_Plugins/Custom/css/Common.css" ]
   //"propertyEditors": [

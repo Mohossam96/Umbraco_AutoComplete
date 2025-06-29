@@ -408,7 +408,8 @@
         vm.labels.content_createEmpty = data[1];
     });
 
-    vm.$onInit = function () {
+    vm.$onInit = function ()
+    {
         try {
             console.log('initilizing BlockRteController');
             if (!vm.model.value) vm.model.value = {};
@@ -556,17 +557,32 @@
             vm.blocksLoading = false;
             vm.updateLoading();
         }
+        $scope.$watch(() => vm.model.value.markup, function (newVal) {
+            vm.hasContent = typeof newVal === "string" && newVal.trim().length > 0;
+            if (typeof vm.model.value.markup !== "string") {
+                vm.model.value.markup = "";
+            }
+           
+        });
+        if (typeof vm.model.value.markup !== "string") {
+            vm.model.value.markup = "";
+        }
     };
     vm.aiPrompt = "";
     vm.isLoading = false;
    
     vm.generateDescription = function () {
-        if (!vm.aiPrompt) return;
-
+        if (!vm.aiPrompt && !vm.model.value.markup) return;
+        let prompt = vm.aiPrompt;
         vm.isLoading = true;
-
+        
+        vm.hasContent = !!vm.model.value.markup && vm.model.value.markup.trim().length > 0;
+        if (vm.hasContent) {
+            prompt = "Enhance the following description: " + vm.model.value.markup;
+        }
+        
         // Use $http injected via the controller (add it to your $inject array and function params)
-        $http.post("/umbraco/backoffice/AIHelper/Completion/GetRichTextSuggestion?input=" + encodeURIComponent(vm.aiPrompt))
+        $http.post("/umbraco/backoffice/AIHelper/Completion/GetRichTextSuggestion?input=" + encodeURIComponent(prompt))
             .then(function (res) {
                 vm.model.value.markup = res.data; // This updates the RTE via binding
                 vm.isLoading = false;
@@ -640,7 +656,8 @@ angular.module("umbraco").component("umbAiRtePropertyEditor", {
         '<ng-form name="rteForm">' +
         '<label>Prompt for AI (e.g. "Write a product description for a coffee mug")</label>' +
         '<input type="text" ng-model="vm.aiPrompt" class="umb-property-editor" style="width: 100%; margin-bottom: 10px;" />' +
-        '<button type="button" class="btn btn-primary" ng-click="vm.generateDescription()">Generate Description</button>'+
+        '<span ng-if="vm.isLoading" class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>'+
+        '<button type="button" class="btn btn-primary" ng-click="vm.generateDescription()" ng-disabled="vm.isLoading" ><i class="icon icon-brain" ng-if="vm.hasContent" style="margin-right: 5px;"></i> {{ vm.hasContent ? "Enhance Description" : "Generate Description" }} </button>'+
         '<div class="umb-rte-editor-con">' +
         '<input type="text" id="{{vm.model.alias}}" ng-focus="vm.focusRTE()" name="modelValue" ng-model="vm.model.value.markup" style="position:absolute;top:0;width:0;height:0;padding:0;border:none;">' +
         '<div disable-hotkeys id="{{vm.textAreaHtmlId}}" class="umb-rte-editor" ng-style="{ width: vm.containerWidth, height: vm.containerHeight, overflow: vm.containerOverflow}"></div>' +
