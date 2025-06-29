@@ -52,14 +52,15 @@
             vm.blocksLoading = false;
             vm.updateLoading();
             $scope.$evalAsync();
-            console.log('BlockRteController onLoaded called, layout:', vm.layout);
+
+
             // check if rich text has value if so store it in local storage
             if (vm.model.value.markup && vm.model.value.markup.trim() !== "") {
                 const localStorageKey = `umbraco-rte-${vm.model.alias}`;
                 localStorage.setItem(localStorageKey, vm.model.value.markup);
             }
         } catch (e) {
-            console.error("onLoaded error:", e);
+            
             vm.blocksLoading = false;
             vm.updateLoading();
         }
@@ -411,7 +412,7 @@
     vm.$onInit = function ()
     {
         try {
-            console.log('initilizing BlockRteController');
+           
             if (!vm.model.value) vm.model.value = {};
             if (!vm.model.value.blocks) vm.model.value.blocks = {};
             var _config$editor;
@@ -439,7 +440,7 @@
                 modelObject = blockEditorService.createModelObject(vm.model.value.blocks, vm.model.editor, config.blocks, scopeOfExistence, $scope);
                 const blockModelObjectLoading = modelObject.load();
                 assetPromises.push(blockModelObjectLoading.then(onLoaded, function (err) {
-                    console.error("Block model object loading failed", err);
+                   
                     vm.blocksLoading = false;
                     vm.updateLoading();
                 }));
@@ -540,19 +541,19 @@
                     }
                 }));
             }).catch(function (err) {
-                console.error("TinyMCE or asset loading failed", err);
+               
                 vm.rteLoading = false;
                 vm.blocksLoading = false;
                 vm.updateLoading();
             });
-            console.log('BlockRteController onInit successfully');
+           
             // check if rich text has value if so store it in local storage
             if (vm.model.value.markup && vm.model.value.markup.trim() !== "") {
                 const localStorageKey = `umbraco-rte-${vm.model.alias}`;
                 localStorage.setItem(localStorageKey, vm.model.value.markup);
             }
         } catch (err) {
-            console.error("Component initialization failed", err);
+            
             vm.rteLoading = false;
             vm.blocksLoading = false;
             vm.updateLoading();

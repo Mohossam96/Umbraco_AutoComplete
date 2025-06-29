@@ -8,7 +8,7 @@ angular.module("umbraco.directives").component("umbAiTagsEditor", {
             
                 
                 let title = args;
-                console.log(title);
+                
                
 
                 if (!title) {
@@ -25,7 +25,7 @@ angular.module("umbraco.directives").component("umbAiTagsEditor", {
                         .then(res => {
                             vm.aiSuggestions = res.data || [];
                         }, err => {
-                            console.error("AI prompt error:", err);
+                            
                             vm.aiSuggestions = [];
                         });
                 
@@ -38,7 +38,7 @@ angular.module("umbraco.directives").component("umbAiTagsEditor", {
                         try {
                             vm.viewModel = JSON.parse(vm.value)
                         } catch (e) {
-                            console.error("Invalid JSON in tag editor value", vm.value)
+                            
                         }
                         if (!isInitLoad) updateModelValue(vm.viewModel);
                     } else {
@@ -88,40 +88,14 @@ angular.module("umbraco.directives").component("umbAiTagsEditor", {
             if (vm.tagEditorForm && vm.tagEditorForm.tagCount)
                 vm.tagEditorForm.tagCount.$setViewValue(vm.viewModel.length);
         }
-        // when TagPrompt event called do something
-        
-        //vm.onTagFieldFocus = function ()
-        //{
-        //    console.log("Tag field focused, fetching AI suggestions...");
-        //    console.log("model:", $scope.$parent.model);
-        //    console.log("model title", $scope.$parent.model.title);
-        //    let title = $scope.$parent.$root.$$watchers[2].last;
-        //    console.log(title);
-        //    //save it to local storage
-        //    localStorage.setItem("aiTagTitle", title);
-
-        //    if (!title) {
-        //        vm.aiSuggestions = [];
-        //        return;
-        //    }
-        //    if (promptDebounce) $timeout.cancel(promptDebounce);
-        //    promptDebounce = $timeout(() => {
-        //        $http.post("/umbraco/backoffice/AIHelper/Completion/GetTagSuggestion?input=" + localStorage.getItem("aiTagTitle"))
-        //            .then(res => {
-        //                vm.aiSuggestions = res.data || [];
-        //            }, err => {
-        //                console.error("AI prompt error:", err);
-        //                vm.aiSuggestions = [];
-        //            });
-        //    }, 500);
-        //};
+    
 
         vm.addTagFromSuggestion = function (tagText) {
             addTagInternal(tagText);
         };
 
         vm.$onInit = function () {
-            console.log("Initializing umbTagsEditor with config:");
+            
             vm.inputId = vm.inputId || "t" + String.CreateGuid();
             assetsService.loadJs("lib/typeahead.js/typeahead.bundle.min.js").then(function () {
                 vm.isLoading = !1;

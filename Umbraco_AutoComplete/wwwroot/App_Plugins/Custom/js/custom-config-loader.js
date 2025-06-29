@@ -1,12 +1,12 @@
-﻿window.__customFeatureConfig__ = {};
+﻿//window.__customFeatureConfig__ = {};
 
-fetch('/App_Plugins/Custom/config.json')
-    .then(res => {
-        console.log("Loading custom feature config from /App_Plugins/Custom/config.json", res);
+//fetch('/App_Plugins/Custom/config.json')
+//    .then(res => {
+        
 
-        return res.json()
-    })
-    .then(config => {
-        console.log("Parsed config JSON:", config);
-        window.__customFeatureConfig__ = config;
-    });
+//        return res.json()
+//    })
+//    .then(config => {
+        
+//        window.__customFeatureConfig__ = config;
+//    });

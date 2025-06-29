@@ -9,7 +9,7 @@
                 $scope.suggestion = [];
                 return
             };
-            console.log("Fetching suggestion for:", $scope.model.value);
+           
            
             $http.post("/umbraco/backoffice/AIHelper/Completion/GetSuggestion?input="+ $scope.model.value)
                 .then(res => {

@@ -22,7 +22,7 @@
                     request: function (request) {
                        
                         if (!request) return request;
-                        //console.log(CustomFeatureConfig);
+                        
                         if (CustomFeatureConfig.enableAITextEditor && request.url.includes("/propertyeditors/textbox/textbox.html")) {
                             request.url = "/App_Plugins/AutoCompleteTitle/autocomplete-title.html";
                         }
