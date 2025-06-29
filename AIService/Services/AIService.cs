@@ -1,4 +1,5 @@
 ﻿using AIService.Interfaces;
+using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Text;
 
@@ -7,8 +8,17 @@ namespace AIService.Services
 {
     public class AIService : IAIService
     {
+        private readonly IConfiguration _configuration;
+
+        public AIService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public async Task<string> GetRichTextSuggestionAsync(string input)
         {
+            var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
+            var key = _configuration["AIService:APIKey"];
             var client = new HttpClient();
             // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
             var request = new
@@ -36,7 +46,7 @@ namespace AIService.Services
 
             var json = JsonConvert.SerializeObject(request);
             var response = await client.PostAsync(
-                @"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDJfBCUTgFUI4kv1RxM40a1khn8WYYQb4I",
+                @$"{APIBaseUrl}?key={key}",
                 new StringContent(json, Encoding.UTF8, "application/json")
             );
 
@@ -49,6 +59,9 @@ namespace AIService.Services
 
         public async Task<string> ChatBotReply(string input)
         {
+            
+            var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
+            var key = _configuration["AIService:APIKey"];
             var client = new HttpClient();
             // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
             var request = new
@@ -72,7 +85,7 @@ namespace AIService.Services
 
             var json = JsonConvert.SerializeObject(request);
             var response = await client.PostAsync(
-                @"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDJfBCUTgFUI4kv1RxM40a1khn8WYYQb4I",
+                @$"{APIBaseUrl}?key={key}",
                 new StringContent(json, Encoding.UTF8, "application/json")
             );
 
@@ -85,6 +98,8 @@ namespace AIService.Services
 
         public async Task<List<string>> GetSuggestionsAsync(string input)
         {
+            var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
+            var key = _configuration["AIService:APIKey"];
             var client = new HttpClient();
             // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
             var request = new
@@ -107,7 +122,7 @@ namespace AIService.Services
 
             var json = JsonConvert.SerializeObject(request);
             var response = await client.PostAsync(
-                @"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDJfBCUTgFUI4kv1RxM40a1khn8WYYQb4I",
+                $@"{APIBaseUrl}?key={key}",
                 new StringContent(json, Encoding.UTF8, "application/json")
             );
 
@@ -119,8 +134,9 @@ namespace AIService.Services
         }
         public async Task<List<string>> GetTagSuggestionsAsync(string input)
         {
+            var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
+            var key = _configuration["AIService:APIKey"];
             var client = new HttpClient();
-            // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
             var request = new
             {
                 contents = new[]
@@ -141,7 +157,7 @@ namespace AIService.Services
 
             var json = JsonConvert.SerializeObject(request);
             var response = await client.PostAsync(
-                @"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=AIzaSyDJfBCUTgFUI4kv1RxM40a1khn8WYYQb4I",
+                $@"{APIBaseUrl}?key={key}",
                 new StringContent(json, Encoding.UTF8, "application/json")
             );
 
