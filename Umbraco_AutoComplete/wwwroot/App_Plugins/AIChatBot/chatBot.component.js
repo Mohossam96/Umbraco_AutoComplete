@@ -24,7 +24,7 @@
             <button type="button" class="btn" ng-click="$ctrl.sendPrompt()" ng-disabled="$ctrl.loading">Send</button>
         </div>
     </div>
-    <div class="ai-chat-button" ng-click="$ctrl.toggleChat()">💬</div>
+    <div class="ai-chat-button" ng-click="$ctrl.toggleChat()">🤖</div>
 `,
 
     controller: function ($http, $sce, $timeout, $document, notificationsService) {
