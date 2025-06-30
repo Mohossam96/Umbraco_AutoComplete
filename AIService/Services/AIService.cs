@@ -1,4 +1,5 @@
 ﻿using AIService.Interfaces;
+using GAFI.SupportActivities.Helpers;
 using Microsoft.Extensions.Configuration;
 using Newtonsoft.Json;
 using System.Text;
@@ -15,12 +16,8 @@ namespace AIService.Services
             _configuration = configuration;
         }
 
-        public async Task<string> GetRichTextSuggestionAsync(string input)
+        public async Task<ApiResult<string>> GetRichTextSuggestionAsync(string input)
         {
-            var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
-            var key = _configuration["AIService:APIKey"];
-            var client = new HttpClient();
-            // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
             var request = new
             {
                 contents = new[]
@@ -42,28 +39,38 @@ namespace AIService.Services
                     }
                 }
             };
-
-
-            var json = JsonConvert.SerializeObject(request);
-            var response = await client.PostAsync(
-                @$"{APIBaseUrl}?key={key}",
-                new StringContent(json, Encoding.UTF8, "application/json")
-            );
-
-            var result = await response.Content.ReadAsStringAsync();
-            dynamic completion = JsonConvert.DeserializeObject(result);
-            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
-            suggestions = suggestions.Replace("```html", "").Replace("```", "").Trim();
-            return suggestions;
-        }
-
-        public async Task<string> ChatBotReply(string input)
-        {
-            
             var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
             var key = _configuration["AIService:APIKey"];
-            var client = new HttpClient();
-            // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
+            var fullURL = @$"{APIBaseUrl}?key={key}";
+
+
+            
+            var ApiResponse =  ApiHelper<object>.Post(fullURL, request).GetAwaiter().GetResult();
+
+        
+
+            if(ApiResponse.StatusCode == (int)System.Net.HttpStatusCode.TooManyRequests)
+            {
+                return new ApiResult<string>() 
+                {
+                    Message = "You have exceeded the maximum number of requests. Please try again later." ,
+                    StatusCode= (int)System.Net.HttpStatusCode.TooManyRequests
+                };
+            }
+            dynamic completion = ApiResponse.Response;
+            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
+            suggestions = suggestions.Replace("```html", "").Replace("```", "").Trim();
+            var res = new ApiResult<string>()
+            {
+                Response = suggestions,
+                StatusCode = (int)System.Net.HttpStatusCode.OK,
+            };
+            return res;
+        }
+
+        public async Task<ApiResult<string>> ChatBotReply(string input)
+        {
+            
             var request = new
             {
                 contents = new[]
@@ -83,25 +90,38 @@ namespace AIService.Services
             };
 
 
-            var json = JsonConvert.SerializeObject(request);
-            var response = await client.PostAsync(
-                @$"{APIBaseUrl}?key={key}",
-                new StringContent(json, Encoding.UTF8, "application/json")
-            );
-
-            var result = await response.Content.ReadAsStringAsync();
-            dynamic completion = JsonConvert.DeserializeObject(result);
-            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
-            suggestions = suggestions.Replace("```html", "").Replace("```", "").Trim();
-            return suggestions;
-        }
-
-        public async Task<List<string>> GetSuggestionsAsync(string input)
-        {
             var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
             var key = _configuration["AIService:APIKey"];
-            var client = new HttpClient();
-            // client.DefaultRequestHeaders.Add("api-key", "<your-azure-api-key>");
+            var fullURL = @$"{APIBaseUrl}?key={key}";
+
+
+
+            var ApiResponse = ApiHelper<object>.Post(fullURL, request).GetAwaiter().GetResult();
+
+
+
+            if (ApiResponse.StatusCode == (int)System.Net.HttpStatusCode.TooManyRequests)
+            {
+                return new ApiResult<string>()
+                {
+                    Message = "You have exceeded the maximum number of requests. Please try again later.",
+                    StatusCode =  (int)System.Net.HttpStatusCode.TooManyRequests
+                };
+            }
+            dynamic completion = ApiResponse.Response;
+            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
+            suggestions = suggestions.Replace("```html", "").Replace("```", "").Trim();
+            var res = new ApiResult<string>()
+            {
+                Response = suggestions,
+                StatusCode = (int)System.Net.HttpStatusCode.OK,
+            };
+            return res;
+        }
+
+        public async Task<ApiResult<List<string>>> GetSuggestionsAsync(string input)
+        {
+    
             var request = new
             {
                 contents = new[]
@@ -119,24 +139,43 @@ namespace AIService.Services
                 }
             };
 
-
-            var json = JsonConvert.SerializeObject(request);
-            var response = await client.PostAsync(
-                $@"{APIBaseUrl}?key={key}",
-                new StringContent(json, Encoding.UTF8, "application/json")
-            );
-
-            var result = await response.Content.ReadAsStringAsync();
-            dynamic completion = JsonConvert.DeserializeObject(result);
-            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
-            var listofSuggestions = suggestions.Split(',').ToList();
-            return listofSuggestions;
-        }
-        public async Task<List<string>> GetTagSuggestionsAsync(string input)
-        {
             var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
             var key = _configuration["AIService:APIKey"];
-            var client = new HttpClient();
+            var fullURL = @$"{APIBaseUrl}?key={key}";
+
+
+
+            var ApiResponse = ApiHelper<object>.Post(fullURL, request).GetAwaiter().GetResult();
+
+
+
+            if (ApiResponse.StatusCode == (int)System.Net.HttpStatusCode.TooManyRequests)
+            {
+                return new ApiResult<List<string>>() 
+                { 
+                    Message="You have exceeded the maximum number of requests. Please try again later." ,
+                    StatusCode=(int)System.Net.HttpStatusCode.TooManyRequests,
+
+
+                
+                };
+            }
+            dynamic completion = ApiResponse.Response;
+            var suggestions = ((string)completion.candidates[0].content.parts[0].text);
+            suggestions = suggestions.Replace("```html", "").Replace("```", "").Trim();
+            
+           
+            var listofSuggestions = suggestions.Split(',').ToList();
+            var response = new ApiResult<List<string>>()
+            {
+                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                Response = listofSuggestions,
+            };
+            return response;
+        }
+        public async Task<ApiResult<List<string>>> GetTagSuggestionsAsync(string input)
+        {
+           
             var request = new
             {
                 contents = new[]
@@ -155,17 +194,40 @@ namespace AIService.Services
             };
 
 
-            var json = JsonConvert.SerializeObject(request);
-            var response = await client.PostAsync(
-                $@"{APIBaseUrl}?key={key}",
-                new StringContent(json, Encoding.UTF8, "application/json")
-            );
 
-            var result = await response.Content.ReadAsStringAsync();
-            dynamic completion = JsonConvert.DeserializeObject(result);
+            var APIBaseUrl = _configuration["AIService:APIBaseUrl"];
+            var key = _configuration["AIService:APIKey"];
+            var fullURL = @$"{APIBaseUrl}?key={key}";
+
+
+
+            var ApiResponse = ApiHelper<object>.Post(fullURL, request).GetAwaiter().GetResult();
+
+
+
+            if (ApiResponse.StatusCode == (int)System.Net.HttpStatusCode.TooManyRequests)
+            {
+                return new ApiResult<List<string>>()
+                {
+                    Message = "You have exceeded the maximum number of requests. Please try again later.",
+                    StatusCode = (int)System.Net.HttpStatusCode.TooManyRequests,
+
+
+
+                };
+            }
+            dynamic completion = ApiResponse.Response;
             var suggestions = ((string)completion.candidates[0].content.parts[0].text);
+            suggestions = suggestions.Replace("```html", "").Replace("```", "").Trim();
+
+
             var listofSuggestions = suggestions.Split(',').ToList();
-            return listofSuggestions;
+            var response = new ApiResult<List<string>>()
+            {
+                StatusCode = (int)System.Net.HttpStatusCode.OK,
+                Response = listofSuggestions,
+            };
+            return response;
         }
     }
 }

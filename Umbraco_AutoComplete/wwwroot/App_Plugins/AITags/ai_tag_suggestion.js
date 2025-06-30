@@ -1,7 +1,7 @@
 angular.module("umbraco.directives").component("umbAiTagsEditor", {
     transclude: !0,
     template: '<div class="umb-tags-editor">    <ng-form name="vm.tagEditorForm">        <div class="ai-prompt-suggestion">            <div class="suggestion-buttons" style="margin-bottom:10px;">                <button type="button" class="btn btn-default" ng-repeat="suggestion in vm.aiSuggestions" ng-click="vm.addTagFromSuggestion(suggestion)">                    {{suggestion}}                </button>            </div>        </div>        <div ng-if="vm.isLoading">            <localize key="loading">Loading</localize>...        </div>        <div ng-if="!isLoading">            <input type="hidden" name="tagCount" ng-model="vm.viewModel.length" val-property-validator="vm.validateMandatory">            <span ng-repeat="tag in vm.viewModel track by $index" class="label label-primary tag" ng-keyup="vm.onKeyUpOnTag(tag, $event)" tabindex="0">                <span ng-bind-html="tag"></span>                <umb-icon ng-if="!vm.readonly" icon="icon-trash" class="btn-icon" ng-click="vm.showPrompt($index, tag)" localize="title" title="@buttons_deleteTag"></umb-icon>                <umb-confirm-action ng-if="vm.promptIsVisible === $index" direction="left" on-confirm="vm.removeTag(tag)" on-cancel="vm.hidePrompt()"></umb-confirm-action>            </span>            <input type="text" id="{{vm.inputId}}" class="typeahead tags-{{vm.inputId}}" ng-model="vm.tagToAdd" ng-focus="vm.onTagFieldFocus()" ng-keydown="vm.addTagOnEnter($event)" ng-blur="vm.addTag()" ng-maxlength="200" maxlength="200" localize="placeholder" placeholder="@placeholders_enterTags" aria-labelledby="{{vm.inputId}}" ng-readonly="vm.readonly">        </div>    </ng-form></div>',
-    controller: function umbTagsEditorController($rootScope, assetsService, umbRequestHelper, angularHelper, $timeout, $element, $attrs, $http, $scope, $rootScope) {
+    controller: function umbTagsEditorController($rootScope, assetsService, umbRequestHelper, angularHelper, $timeout, $element, $attrs, $http, $scope, $rootScope, notificationsService) {
         let typeahead, tagsHound, vm = this;
         let promptDebounce = null;
         $rootScope.$on("TagPrompt", function (event, args) {
@@ -22,8 +22,15 @@ angular.module("umbraco.directives").component("umbAiTagsEditor", {
                     'Content-Type': 'application/json'
                 }
             })
-                        .then(res => {
-                            vm.aiSuggestions = res.data || [];
+
+                .then(res => {
+                    if (res.data.Response.StatusCode === 429)
+                    {
+                        notificationsService("You have reached the maximum number of requests for today. Please try again later.");
+                        vm.aiSuggestions = [];
+                        return;
+                    }
+                            vm.aiSuggestions = res.data.Response || [];
                         }, err => {
                             
                             vm.aiSuggestions = [];

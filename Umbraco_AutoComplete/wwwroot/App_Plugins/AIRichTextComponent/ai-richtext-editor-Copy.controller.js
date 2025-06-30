@@ -1,7 +1,7 @@
 ﻿function BlockRteController(
     $element, $scope, $q, $timeout, $interpolate, assetsService, editorService, clipboardService,
     localizationService, overlayService, blockEditorService, udiService, serverValidationManager,
-    angularHelper, eventsService, $attrs, tinyMceAssets, tinyMceService, $http, $rootScope // <-- add $http here
+    angularHelper, eventsService, $attrs, tinyMceAssets, tinyMceService, $http, $rootScope, notificationsService
 ) {
     var modelObject, unsubscribe = [], liveEditing = true, vm = this;
 
@@ -585,10 +585,15 @@
         // Use $http injected via the controller (add it to your $inject array and function params)
         $http.post("/umbraco/backoffice/AIHelper/Completion/GetRichTextSuggestion?input=" + encodeURIComponent(prompt))
             .then(function (res) {
-                vm.model.value.markup = res.data; // This updates the RTE via binding
+                if (res.data.StatusCode === 429 ) {
+                    notificationsService.error('You have reached the maximum number of requests for today. Please try again later.');
+                    vm.isLoading = false;
+                    return;
+                }
+                vm.model.value.markup = res.data.Response; // This updates the RTE via binding
                 vm.isLoading = false;
                 //emit event with res.data 
-                $rootScope.$emit("TagPrompt", res.data);
+                $rootScope.$emit("TagPrompt", res.data.Response);
             })
             .catch(function () {
                 vm.isLoading = false;
@@ -648,7 +653,7 @@
 BlockRteController.$inject = [
     '$element', '$scope', '$q', '$timeout', '$interpolate', 'assetsService', 'editorService', 'clipboardService',
     'localizationService', 'overlayService', 'blockEditorService', 'udiService', 'serverValidationManager',
-    'angularHelper', 'eventsService', '$attrs', 'tinyMceAssets', 'tinyMceService', '$http', '$rootScope'
+    'angularHelper', 'eventsService', '$attrs', 'tinyMceAssets', 'tinyMceService', '$http', '$rootScope','notificationsService'
 ];
 
 angular.module("umbraco").component("umbAiRtePropertyEditor", {

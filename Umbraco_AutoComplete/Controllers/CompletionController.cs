@@ -1,4 +1,5 @@
 ﻿using AIService.Interfaces;
+using GAFI.SupportActivities.Helpers;
 using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using System.Text;
@@ -17,7 +18,7 @@ namespace Umbraco_AutoComplete.Controllers
             _aiService = aiService;
         }
         [HttpPost]
-        public async Task<List<string>> GetSuggestion(string input)
+        public async Task<ApiResult<List<string>>> GetSuggestion(string input)
         {
             #region old 
             // var client = new HttpClient();
@@ -55,18 +56,18 @@ namespace Umbraco_AutoComplete.Controllers
 
         [HttpPost]
 
-        public async Task<List<string>> GetTagSuggestion(RequestDTO request)
+        public async Task<ApiResult<List<string>>> GetTagSuggestion(RequestDTO request)
         {
             return await _aiService.GetTagSuggestionsAsync(request.input);
         }
         [HttpPost]
-        public async Task<string> GetRichTextSuggestion(string input)
+        public async Task<ApiResult<string>> GetRichTextSuggestion(string input)
         {
            
             return await _aiService.GetRichTextSuggestionAsync(input);
         }
         [HttpPost]
-        public async Task<string> GetChatReply(RequestDTO request)
+        public async Task<ApiResult<string>> GetChatReply(RequestDTO request)
         {
             return await _aiService.ChatBotReply(request.input);
         }

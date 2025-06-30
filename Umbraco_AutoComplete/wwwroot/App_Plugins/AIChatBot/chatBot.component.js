@@ -27,7 +27,7 @@
     <div class="ai-chat-button" ng-click="$ctrl.toggleChat()">💬</div>
 `,
 
-    controller: function ($http, $sce, $timeout, $document) {
+    controller: function ($http, $sce, $timeout, $document, notificationsService) {
         
         var vm = this;
         vm.showChat = false;
@@ -94,10 +94,20 @@
             vm.messages.push({ role: 'user', html: $sce.trustAsHtml(prompt) });
 
             $http.post('/umbraco/backoffice/AIHelper/Completion/GetChatReply',
-                JSON.stringify({ input: prompt }), {
+                JSON.stringify({ input: prompt }),
+            {
                 headers: { 'Content-Type': 'application/json' }
             }).then(function (res) {
-                const html = marked.parse(res.data || '');
+                if (res.data.StatusCode == 429)
+                {
+                    // pop up message
+                    // notificationsService message
+                    notificationsService.error('You have reached the maximum number of requests for today. Please try again later.');
+                    vm.messages.push({ role: 'ai', html: $sce.trustAsHtml('<i>Too many requests. Please try again later.</i>') });
+                    vm.loading = false;
+                    return;
+                }
+                const html = marked.parse(res.data.Response || '');
                 vm.messages.push({ role: 'ai', html: $sce.trustAsHtml(html) });
                 vm.loading = false;
 
