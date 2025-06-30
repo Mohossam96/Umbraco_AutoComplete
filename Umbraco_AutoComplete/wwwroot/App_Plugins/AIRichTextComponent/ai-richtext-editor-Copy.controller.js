@@ -663,7 +663,7 @@ angular.module("umbraco").component("umbAiRtePropertyEditor", {
         '<label>Prompt for AI (e.g. "Write a product description for a coffee mug")</label>' +
         '<input type="text" ng-model="vm.aiPrompt" class="umb-property-editor" style="width: 100%; margin-bottom: 10px;" />' +
         '<button type="button" ng-if="vm.isLoading" class="btn btn-primary  d-flex align-items-center" > <div class="spinner-border spinner-border-sm me-2" role="status"> <span class="visually-hidden">Loading...</span> </div></button>'+
-        '<button type="button" ng-if="!vm.isLoading" class="btn btn-primary" ng-click="vm.generateDescription()" ng-disabled="vm.isLoading" ><i class="icon icon-brain" ng-if="vm.hasContent" style="margin-right: 5px;"></i> {{ vm.hasContent ? "Enhance Description" : "Generate Description" }} </button>'+
+        '<button type="button" ng-if="!vm.isLoading" class="btn btn-primary" ng-click="vm.generateDescription()" ng-disabled="vm.isLoading" ><i class="icon icon-brain" ng-if="vm.hasContent" style="margin-right: 5px;"></i>✨{{ vm.hasContent ? "Enhance Description" : "Generate Description" }}</button>'+
         '<div class="umb-rte-editor-con">' +
         '<input type="text" id="{{vm.model.alias}}" ng-focus="vm.focusRTE()" name="modelValue" ng-model="vm.model.value.markup" style="position:absolute;top:0;width:0;height:0;padding:0;border:none;">' +
         '<div disable-hotkeys id="{{vm.textAreaHtmlId}}" class="umb-rte-editor" ng-style="{ width: vm.containerWidth, height: vm.containerHeight, overflow: vm.containerOverflow}"></div>' +
