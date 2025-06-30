@@ -7,11 +7,11 @@ using System.Text;
 namespace AIService.Services
 
 {
-    public class AIService : IAIService
+    public class ContentSuggestionService : IContentSuggestionService
     {
         private readonly IConfiguration _configuration;
 
-        public AIService(IConfiguration configuration)
+        public ContentSuggestionService(IConfiguration configuration)
         {
             _configuration = configuration;
         }

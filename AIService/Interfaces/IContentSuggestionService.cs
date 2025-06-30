@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace AIService.Interfaces
 {
-    public interface IAIService
+    public interface IContentSuggestionService
     {
         Task<ApiResult<List<string>>> GetSuggestionsAsync(string input);
     

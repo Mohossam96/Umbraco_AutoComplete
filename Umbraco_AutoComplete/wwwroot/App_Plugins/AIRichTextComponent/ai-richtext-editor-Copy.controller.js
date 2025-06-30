@@ -583,7 +583,7 @@
         }
         
         // Use $http injected via the controller (add it to your $inject array and function params)
-        $http.post("/umbraco/backoffice/AIHelper/Completion/GetRichTextSuggestion?input=" + encodeURIComponent(prompt))
+        $http.post("/umbraco/backoffice/AIHelper/ContentSuggestion/GetRichTextSuggestion?input=" + encodeURIComponent(prompt))
             .then(function (res) {
                 if (res.data.StatusCode === 429 ) {
                     notificationsService.error('You have reached the maximum number of requests for today. Please try again later.');

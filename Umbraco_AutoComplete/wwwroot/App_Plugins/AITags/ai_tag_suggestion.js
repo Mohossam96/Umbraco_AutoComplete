@@ -17,7 +17,7 @@ angular.module("umbraco.directives").component("umbAiTagsEditor", {
                 }
                 
 
-            $http.post("/umbraco/backoffice/AIHelper/Completion/GetTagSuggestion", JSON.stringify({ input: title }), {
+            $http.post("/umbraco/backoffice/AIHelper/ContentSuggestion/GetTagSuggestion", JSON.stringify({ input: title }), {
                 headers: {
                     'Content-Type': 'application/json'
                 }

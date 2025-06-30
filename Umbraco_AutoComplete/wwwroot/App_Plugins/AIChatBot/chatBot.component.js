@@ -93,7 +93,7 @@
             // Add user's message to history
             vm.messages.push({ role: 'user', html: $sce.trustAsHtml(prompt) });
 
-            $http.post('/umbraco/backoffice/AIHelper/Completion/GetChatReply',
+            $http.post('/umbraco/backoffice/AIHelper/ContentSuggestion/GetChatReply',
                 JSON.stringify({ input: prompt }),
             {
                 headers: { 'Content-Type': 'application/json' }

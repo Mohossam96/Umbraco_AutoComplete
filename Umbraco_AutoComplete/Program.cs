@@ -11,7 +11,7 @@ builder.CreateUmbracoBuilder()
     .Build();
 
 
-builder.Services.AddSingleton<IAIService, AIService.Services.AIService>();
+builder.Services.AddScoped<IContentSuggestionService,ContentSuggestionService>();
 
 WebApplication app = builder.Build();
 

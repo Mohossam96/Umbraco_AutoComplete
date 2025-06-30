@@ -11,13 +11,9 @@
             };
            
            
-            $http.post("/umbraco/backoffice/AIHelper/Completion/GetSuggestion?input="+ $scope.model.value)
+            $http.post("/umbraco/backoffice/AIHelper/ContentSuggestion/GetSuggestion?input="+ $scope.model.value)
                 .then(res => {
                     if (res.data.StatusCode === 429) {
-
-                        // pop up message in umbraco back office
-
-
 
                         notificationsService.error('You have reached the maximum number of requests for today. Please try again later.');
                         return;

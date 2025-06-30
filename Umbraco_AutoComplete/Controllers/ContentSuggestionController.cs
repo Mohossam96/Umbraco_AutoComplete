@@ -10,10 +10,10 @@ using Umbraco_AutoComplete.DTO;
 namespace Umbraco_AutoComplete.Controllers
 {
     [PluginController("AIHelper")]
-    public class CompletionController : UmbracoAuthorizedApiController
+    public class ContentSuggestionController : UmbracoAuthorizedApiController
     {
-        private readonly IAIService _aiService;
-        public CompletionController(IAIService aiService)
+        private readonly IContentSuggestionService _aiService;
+        public ContentSuggestionController(IContentSuggestionService aiService)
         {
             _aiService = aiService;
         }
