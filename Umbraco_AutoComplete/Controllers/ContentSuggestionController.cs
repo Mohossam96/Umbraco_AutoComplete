@@ -18,7 +18,7 @@ namespace Umbraco_AutoComplete.Controllers
             _aiService = aiService;
         }
         [HttpPost]
-        public async Task<ApiResult<List<string>>> GetSuggestion(string input)
+        public async Task<ApiResult<List<string>>> GetSuggestion(RequestDTO input)
         {
             #region old 
             // var client = new HttpClient();
@@ -51,7 +51,7 @@ namespace Umbraco_AutoComplete.Controllers
             // dynamic completion = JsonConvert.DeserializeObject(result);
             // return ((string)completion.candidates[0].content.parts[0].text).Trim();
             #endregion
-            return await _aiService.GetSuggestionsAsync(input);
+            return await _aiService.GetSuggestionsAsync(input.input);
         }
 
         [HttpPost]
@@ -61,10 +61,10 @@ namespace Umbraco_AutoComplete.Controllers
             return await _aiService.GetTagSuggestionsAsync(request.input);
         }
         [HttpPost]
-        public async Task<ApiResult<string>> GetRichTextSuggestion(string input)
+        public async Task<ApiResult<string>> GetRichTextSuggestion(RequestDTO input)
         {
            
-            return await _aiService.GetRichTextSuggestionAsync(input);
+            return await _aiService.GetRichTextSuggestionAsync(input.input);
         }
         [HttpPost]
         public async Task<ApiResult<string>> GetChatReply(RequestDTO request)

@@ -11,7 +11,7 @@
             };
            
            
-            $http.post("/umbraco/backoffice/AIHelper/ContentSuggestion/GetSuggestion?input="+ $scope.model.value)
+            $http.post("/umbraco/backoffice/AIHelper/ContentSuggestion/GetSuggestion"JSON.stringify({ input: $scope.model.value }) )
                 .then(res => {
                     if (res.data.StatusCode === 429) {
 
