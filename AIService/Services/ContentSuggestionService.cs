@@ -32,7 +32,7 @@ namespace AIService.Services
                                         Do not ask questions, suggest alternatives, or include verbal phrases.
                                         Respond immediately with the content only.
                                         Format the output as valid HTML using <strong>, <em>, <p>, etc.
-                                        Do not wrap the result in Markdown or code blocks like ```html.
+                                        Do not wrap the result in Markdown or code blocks like ```html. reply with same language as the input either English or Arabic only.
 "
                             }
                         }
@@ -132,7 +132,7 @@ namespace AIService.Services
                         {
                             new
                             {
-                                text = $@"Given the partial input, reply with a comma seprated list of 5 titles suggestions that best completes it, as if you're naming something (e.g., a product, concept, or project) , first suggestion 2 single word suggestions then the rest see what best fits it wheather 2 words or 1 suggestions. Do not ask questions, suggest alternatives, or include verbal phrases. Exclude special characters (like \n) and avoid introductions or explanations.  intput = {input}"
+                                text = $@"Given the partial input, reply with a comma seprated list of 5 titles suggestions that best completes it, as if you're naming something (e.g., a product, concept, or project) , first suggestion 2 single word suggestions then the rest see what best fits it wheather 2 words or 1 suggestions. Do not ask questions, suggest alternatives, or include verbal phrases. Exclude special characters (like \n) and avoid introductions or explanations. reply with same language as the input either English or Arabic only intput = {input}"
                             }
                         }
                     }
@@ -186,7 +186,7 @@ namespace AIService.Services
                         {
                             new
                             {
-                                text = $@"Suggest 10 relevant tags for the following description. Separate each tag with a comma and respond with tags only — no extra text or explanation. Headline: {input}"
+                                text = $@"Suggest 10 relevant tags for the following description. Separate each tag with a comma and respond with tags only — no extra text or explanation. reply with same language as the input either English or Arabic only. Headline: {input}"
                             }
                         }
                     }
